@@ -1,0 +1,25 @@
+﻿@{
+}
+@model Post_EDU.Core.UploadModels.UserUpload
+
+<div class="text-center">
+    <h1 class="display-4">Debug Registration</h1>
+    <form asp-controller="Authorize" asp-action="Register" method="post" enctype="multipart/form-data">
+        <div class="form-group">
+            <label asp-for="Name"></label>
+            <input asp-for="Name" class="form-control" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Password"></label>
+            <input asp-for="Password" class="form-control" />
+            <span asp-validation-for="Password" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="PathImg"></label>
+            <input asp-for="PathImg" class="form-control" />
+            <span asp-validation-for="PathImg" class="text-danger"></span>
+        </div>
+        <button type="submit" class="btn btn-primary">Create</button>
+    </form>
+</div>

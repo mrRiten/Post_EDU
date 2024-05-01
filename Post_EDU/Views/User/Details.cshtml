@@ -1,0 +1,27 @@
+﻿@{
+    ViewData["Title"] = "Details";
+}
+@model Post_EDU.Core.Models.User
+
+<div>
+    @if (Model.PathImg == null)
+    {
+        <img src="~/defaultImg/@Model.Role.PathDefaultImg" class="postImg" />
+    }
+    @if (Model.PathImg != null)
+    {
+        <img src="~/uploads/@Model.PathImg" class="postImg" />
+    }
+    <h3>@Model.Name</h3>
+    <h6>@Model.Description</h6>
+
+    <p>Date: @Model.DateOfRegister</p>
+    <p>Date: @Model.LastLogin</p>
+
+    <br />
+    <p>User`s Posts</p>
+    @foreach (var post in Model.Posts)
+    {
+        <a href="@Url.Action("Details", "Post", new {slug = post.Slug})"><h6>@post.Title</h6></a>
+    }
+</div>

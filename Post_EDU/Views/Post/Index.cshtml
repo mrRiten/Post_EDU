@@ -1,0 +1,28 @@
+﻿@{
+    ViewData["Title"] = "Post";
+}
+@model ICollection<Post_EDU.Core.Models.Post>
+
+<div class="text-center">
+    <h1 class="display-4">Debug page for posts</h1>
+    <a class="nav-link text-dark" asp-area="" asp-controller="Post" asp-action="Create"><h3>CreatePost</h3></a>
+    @foreach (var post in Model)
+    {
+        <div class="post">
+            <a href="@Url.Action("Details", "Post", new {slug = post.Slug})"><h3>@post.Title</h3></a>
+            <h6>@post.Category.NameCategory</h6>
+            @if (post.PathImg == null)
+            {
+                <img src="~/defaultImg/@post.Category.PathDefaultImg" class="postImg" />
+            }
+            @if (post.PathImg != null)
+            {
+                <img src="~/uploads/@post.PathImg" class="postImg" />
+            }
+            <h6>@post.Description</h6>
+            <a href="@Url.Action("Details", "User", new {userId = post.AuthorId})"><p>by @post.Author.Name</p></a>
+            <p>Date: @post.DateOfCreate</p>
+            <br />
+        </div>
+    }
+</div>
