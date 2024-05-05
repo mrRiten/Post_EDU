@@ -1,7 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore.Update.Internal;
 using Post_EDU.Application.ServiceContracts;
 using Post_EDU.Core.UploadModels;
 using Post_EDU.Web.WebHostHelpers;
@@ -86,7 +84,9 @@ namespace Post_EDU.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> AddLike(LikeUpload model)
         {
-            await _postService.AddLikeAsync(model);
+            var userName = HttpContext.User.Identity.Name;
+
+            await _postService.AddLikeAsync(model, userName);
             return RedirectToAction("Details", "Post", new { slug = model.CurrentPostSlug });
         }
 
