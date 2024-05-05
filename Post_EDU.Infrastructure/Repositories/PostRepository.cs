@@ -48,7 +48,7 @@ namespace Post_EDU.Infrastructure.Repositories
             throw new NotImplementedException();
         }
 
-        public async Task AddLike(int postId)
+        public async Task AddLikeAsync(int postId)
         {
             var post = await _context.Posts
                 .FindAsync(postId);
@@ -60,5 +60,19 @@ namespace Post_EDU.Infrastructure.Repositories
                 await _context.SaveChangesAsync();
             }
         }
+
+        public async Task DeleteLikeAsync(int postId)
+        {
+            var post = await _context.Posts
+                .FindAsync(postId);
+
+            if (post != null)
+            {
+                post.LikeCount--;
+
+                await _context.SaveChangesAsync();
+            }
+        }
+
     }
 }

@@ -1,12 +1,8 @@
-﻿using Post_EDU.Application.RepositoryContracts;
+﻿using Microsoft.Identity.Client;
+using Post_EDU.Application.RepositoryContracts;
 using Post_EDU.Application.ServiceContracts;
 using Post_EDU.Core.Models;
 using Post_EDU.Core.UploadModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Post_EDU.Infrastructure.Services
 {
@@ -15,22 +11,43 @@ namespace Post_EDU.Infrastructure.Services
         private readonly IPostRepository _postRepository;
         private readonly IUserRepository _userRepository;
         private readonly ICommentRepository _commentRepository;
+        private readonly ILikeRepository _likeRepository;
 
-        public PostService(IPostRepository postRepository, IUserRepository userRepository, ICommentRepository commentRepository)
+        public PostService(IPostRepository postRepository, IUserRepository userRepository,
+            ICommentRepository commentRepository, ILikeRepository likeRepository)
         {
             _postRepository = postRepository;
             _userRepository = userRepository;
             _commentRepository = commentRepository;
+            _likeRepository = likeRepository;
         }
 
         public async Task AddLikeAsync(LikeUpload model, string userName)
         {
-            var userId = await _userRepository.GetByNameAsync(userName);
+            var user = await _userRepository.GetByNameAsync(userName);
+            
+            if (user == null) { return; }
 
-            await _postRepository.AddLike(model.PostId);
+            var modelLike = await _likeRepository.GetAsync(model.PostId, user.IdUser);
+                
+            if (modelLike == null)
+            {
+                var like = new Like
+                {
+                    PostId = model.PostId,
+                    UserId = user.IdUser
+                };
+
+                await _postRepository.AddLikeAsync(like.PostId);
+                await _likeRepository.CreateAsync(like);
+                return;
+            }
+
+
+
         }
 
-        public async Task CreateAsync(PostUpload model, string userName, string? pathImg )
+        public async Task CreateAsync(PostUpload model, string userName, string? pathImg)
         {
             var user = await _userRepository.GetByNameAsync(userName);
 
