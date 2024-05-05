@@ -86,7 +86,7 @@ namespace Post_EDU.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> AddLike(LikeUpload model)
         {
-            await _postService.AddLikeAsync(model);
+            //await _postService.AddLikeAsync(model);
             return RedirectToAction("Details", "Post", new { slug = model.CurrentPostSlug });
         }
 
