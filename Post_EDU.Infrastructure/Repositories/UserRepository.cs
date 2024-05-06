@@ -14,9 +14,17 @@ namespace Post_EDU.Infrastructure.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public Task DeleteAsync(int id)
+        public async Task DeleteAsync(User user)
         {
-            throw new NotImplementedException();
+            _context.Users.Remove(user);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task UpdateUserLoginTimeAsync(int userId, DateTime dateTime)
+        {
+            var user = await _context.Users.FindAsync(userId);
+            user.LastLogin = dateTime;
+            await _context.SaveChangesAsync();
         }
 
         public async Task<User?> GetByIdAsync(int id)

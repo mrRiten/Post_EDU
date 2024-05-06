@@ -34,6 +34,8 @@ namespace Post_EDU.Infrastructure.Services
             var user = await _userRepository.GetByNamePasswordAsync(model.Name, model.Password);
             if (user == null) { return null; }
 
+            await _userRepository.UpdateUserLoginTimeAsync(user.IdUser, DateTime.Now);
+
             var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.Name, user.Name),
@@ -47,7 +49,7 @@ namespace Post_EDU.Infrastructure.Services
 
         public Task SingOutAsync(UserUpload model)
         {
-            throw new NotImplementedException();
+            
         }
     }
 }

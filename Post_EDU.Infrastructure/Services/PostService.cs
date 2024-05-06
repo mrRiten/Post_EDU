@@ -22,7 +22,7 @@ namespace Post_EDU.Infrastructure.Services
             _likeRepository = likeRepository;
         }
 
-        public async Task AddLikeAsync(LikeUpload model, string userName)
+        public async Task EditLikeAsync(LikeUpload model, string userName)
         {
             var user = await _userRepository.GetByNameAsync(userName);
             
@@ -40,10 +40,12 @@ namespace Post_EDU.Infrastructure.Services
 
                 await _postRepository.AddLikeAsync(like.PostId);
                 await _likeRepository.CreateAsync(like);
-                return;
             }
-
-
+            else
+            {
+                await _postRepository.DeleteLikeAsync(model.PostId);
+                await _likeRepository.DeleteAsync(modelLike);
+            }
 
         }
 
