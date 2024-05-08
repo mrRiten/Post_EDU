@@ -1,8 +1,8 @@
 ﻿using Post_EDU.Application.RepositoryContracts;
 using Post_EDU.Application.ServiceContracts;
+using Post_EDU.Core.Models;
 using Post_EDU.Core.UploadModels;
 using System.Security.Claims;
-using Post_EDU.Core.Models;
 
 namespace Post_EDU.Infrastructure.Services
 {
@@ -47,9 +47,5 @@ namespace Post_EDU.Infrastructure.Services
             return claimsPrincipal;
         }
 
-        public Task SingOutAsync(UserUpload model)
-        {
-            
-        }
     }
 }

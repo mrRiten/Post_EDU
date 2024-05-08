@@ -11,16 +11,13 @@
     @if (Model.PathImg != null)
     {
         <img src="~/uploads/@Model.PathImg" class="postImg" />
+
     }
     <h3>@Model.Name</h3>
     <h6>@Model.Description</h6>
 
     <p>Date: @Model.DateOfRegister</p>
     <p>Date: @Model.LastLogin</p>
-
-    <form asp-controller="User" asp-action="LogOut" method="post">
-        <input />
-    </form>
 
     <br />
     <p>User`s Posts</p>

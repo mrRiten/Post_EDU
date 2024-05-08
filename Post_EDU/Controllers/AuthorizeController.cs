@@ -42,6 +42,14 @@ namespace Post_EDU.Web.Controllers
         }
 
         [HttpGet]
+        public async Task<IActionResult> SingOut()
+        {
+            await HttpContext.SignOutAsync();
+            return RedirectToAction("Index", "Home");
+        }
+
+
+        [HttpGet]
         public async Task<IActionResult> Register()
         {
             return View();
