@@ -8,7 +8,6 @@ namespace Post_EDU.Application.ServiceContracts
     public interface IAuthorizeService
     {
         public Task<ClaimsPrincipal?> SingInAsync(UserUpload model);
-        public Task SingOutAsync(UserUpload model);
         public Task RegisterAsync(UserUpload model, string? pathImg);
     }
 }

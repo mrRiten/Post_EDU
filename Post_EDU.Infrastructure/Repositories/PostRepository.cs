@@ -69,7 +69,6 @@ namespace Post_EDU.Infrastructure.Repositories
             if (post != null)
             {
                 post.LikeCount--;
-
                 await _context.SaveChangesAsync();
             }
         }

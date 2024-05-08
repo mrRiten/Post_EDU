@@ -1,8 +1,8 @@
 ﻿using Post_EDU.Application.RepositoryContracts;
 using Post_EDU.Application.ServiceContracts;
+using Post_EDU.Core.Models;
 using Post_EDU.Core.UploadModels;
 using System.Security.Claims;
-using Post_EDU.Core.Models;
 
 namespace Post_EDU.Infrastructure.Services
 {
@@ -34,6 +34,8 @@ namespace Post_EDU.Infrastructure.Services
             var user = await _userRepository.GetByNamePasswordAsync(model.Name, model.Password);
             if (user == null) { return null; }
 
+            await _userRepository.UpdateUserLoginTimeAsync(user.IdUser, DateTime.Now);
+
             var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.Name, user.Name),
@@ -45,9 +47,5 @@ namespace Post_EDU.Infrastructure.Services
             return claimsPrincipal;
         }
 
-        public Task SingOutAsync(UserUpload model)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

@@ -16,10 +16,14 @@
     <h3>@Model.Name</h3>
     <h6>@Model.Password</h6>
     <h6>@Model.Description</h6>
-
-    <p>Date: @Model.DateOfRegister</p>
-    <p>Date: @Model.LastLogin</p>
     
+    <p>Date of Register: @Model.DateOfRegister</p>
+    <p>Last Login Date: @Model.LastLogin</p>
+    
+    <form asp-controller="Authorize" asp-action="SingOut" method="get">
+        <button type="submit" class="btn btn-primary">SingOut</button>
+    </form>
+
     <br />
     <p>Posts</p>
     @foreach (var post in Model.Posts)

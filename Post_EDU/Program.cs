@@ -22,14 +22,14 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
     .AddCookie(options => options.LoginPath = "/Authorize/Index");
 
 // Components for DI container
-builder.Services.AddTransient<IPostRepository, PostRepository>();
-builder.Services.AddTransient<IUserRepository, UserRepository>();
-builder.Services.AddTransient<ICommentRepository, CommentRepository>();
-builder.Services.AddTransient<ILikeRepository, LikeRepository>();
-builder.Services.AddTransient<IUserService, UserService>();
-builder.Services.AddTransient<IPostService, PostService>();
-builder.Services.AddTransient<IAuthorizeService, AuthorizeService>();
-builder.Services.AddTransient<ICommentService, CommentService>();
+builder.Services.AddScoped<IPostRepository, PostRepository>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<ICommentRepository, CommentRepository>();
+builder.Services.AddScoped<ILikeRepository, LikeRepository>();
+builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IPostService, PostService>();
+builder.Services.AddScoped<IAuthorizeService, AuthorizeService>();
+builder.Services.AddScoped<ICommentService, CommentService>();
 
 var app = builder.Build();
 
