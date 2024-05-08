@@ -86,7 +86,7 @@ namespace Post_EDU.Web.Controllers
         {
             var userName = HttpContext.User.Identity.Name;
 
-            await _postService.AddLikeAsync(model, userName);
+            await _postService.EditLikeAsync(model, userName);
             return RedirectToAction("Details", "Post", new { slug = model.CurrentPostSlug });
         }
 

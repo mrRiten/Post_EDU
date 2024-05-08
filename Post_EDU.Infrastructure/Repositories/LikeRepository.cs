@@ -16,7 +16,8 @@ namespace Post_EDU.Infrastructure.Repositories
 
         public async Task DeleteAsync(Like model)
         {
-            
+            _context.Likes.Remove(model);
+            await _context.SaveChangesAsync();
         }
 
         public async Task<Like?> GetAsync(int postId, int? userId)
