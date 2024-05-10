@@ -1,0 +1,53 @@
+﻿@{
+    ViewData["Title"] = $"{Model.CurrentCategory.NameCategory}";
+}
+
+@model Post_EDU.Core.Models.CategoryPost;
+
+<link rel="stylesheet" href="~/css/cats.min.css" asp-append-version="true" />
+
+<div class="categories-block">
+    @foreach (var category in Model.Categories)
+    {
+        @if (category.IdCategory == Model.CurrentCategory.IdCategory)
+        {
+            <div class="category active">
+                <a href="@Url.Action("Index", "Category", new { nameCategory = category.NameCategory })"><h1>@category.NameCategory</h1></a>
+            </div>
+        }
+        @if (category.IdCategory != Model.CurrentCategory.IdCategory)
+        {
+            <div class="category">
+                <a href="@Url.Action("Index", "Category", new { nameCategory = category.NameCategory })"><h1>@category.NameCategory</h1></a>
+            </div>
+        }
+    }
+</div>
+<div class="category-desc">
+    @Model.CurrentCategory.Description
+</div>
+<div class="content">
+    @foreach (var post in Model.Posts)
+    {
+        <article class="post">
+            <div class="wrapper-img">
+                @if (post.PathImg == null)
+                {
+                    <img src="~/defaultImg/@post.Category.PathDefaultImg" />
+                }
+                @if (post.PathImg != null)
+                {
+                    <img src="~/uploads/@post.PathImg" />
+                }
+            </div>
+            <div class="wrapper-text">
+                <h2>@post.Title</h2>
+                <p>Description: @post.Description</p>
+                <p>Categories: @post.Category.NameCategory</p>
+                <a href="@Url.Action("Details", "User", new {userId = post.AuthorId})"><p>by @post.Author.Name</p></a>
+                <p>Date Of Create: @post.DateOfCreate</p>
+                <p><a href="@Url.Action("Details", "Post", new {slug = post.Slug})">Read More...</a></p>
+            </div>
+        </article>
+    }
+</div>

@@ -12,14 +12,16 @@ namespace Post_EDU.Infrastructure.Services
         private readonly IUserRepository _userRepository;
         private readonly ICommentRepository _commentRepository;
         private readonly ILikeRepository _likeRepository;
+        private readonly ICategoryRepository _categoryRepository;
 
         public PostService(IPostRepository postRepository, IUserRepository userRepository,
-            ICommentRepository commentRepository, ILikeRepository likeRepository)
+            ICommentRepository commentRepository, ILikeRepository likeRepository, ICategoryRepository categoryRepository)
         {
             _postRepository = postRepository;
             _userRepository = userRepository;
             _commentRepository = commentRepository;
             _likeRepository = likeRepository;
+            _categoryRepository = categoryRepository;
         }
 
         public async Task EditLikeAsync(LikeUpload model, string userName)
@@ -101,11 +103,25 @@ namespace Post_EDU.Infrastructure.Services
         public async Task<IndexTopModel> GetIndexAsync()
         {
             var indexModel = new IndexTopModel {
-                TopLikesPosts = await _postRepository.GetTopByLikes(),
-                TopDatePosts = await _postRepository.GetTopByDate()
+                TopLikesPosts = await _postRepository.GetTopByLikesAsync(),
+                TopDatePosts = await _postRepository.GetTopByDateAsync()
             };
 
             return indexModel;
+        }
+
+        public async Task<CategoryPost> GetCategoryPostAsync(string categoryName)
+        {
+            var currentCategory = await _categoryRepository.GetByNameAsync(categoryName);
+
+            var categoryPostModel = new CategoryPost
+            {
+                Categories = await _categoryRepository.GetAllAsync(),
+                Posts = await _postRepository.GetByCategoryAsync(currentCategory.IdCategory),
+                CurrentCategory = currentCategory,
+            };
+
+            return categoryPostModel;
         }
     }
 }
