@@ -2,34 +2,24 @@
 }
 @model Post_EDU.Core.UploadModels.PostUpload
 
-<div class="text-center">
-    <h1 class="display-4">Debug CreatePost</h1>
-    <form asp-controller="Post" asp-action="Create" method="post" enctype="multipart/form-data">
-        <div class="form-group">
-            <label asp-for="Title"></label>
-            <input asp-for="Title" class="form-control" />
-            <span asp-validation-for="Title" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="Description"></label>
-            <input asp-for="Description" class="form-control" />
-            <span asp-validation-for="Description" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="Text"></label>
-            <input asp-for="Text" class="form-control" />
-            <span asp-validation-for="Text" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="CategoryId"></label>
-            <input asp-for="CategoryId" class="form-control" />
-            <span asp-validation-for="CategoryId" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="PathImg"></label>
-            <input type="file" asp-for="PathImg" class="form-control" />
-            <span asp-validation-for="PathImg" class="text-danger"></span>
-        </div>
-        <button type="submit" class="btn btn-primary">Create</button>
-    </form>
+<link rel="stylesheet" href="~/css/create.min.css" asp-append-version="true" />
+
+<div class="title">
+    <h1>New Post</h1>
+</div>
+
+<div class="content">
+    <div class="form-wrapper">
+        <form asp-controller="Post" asp-action="Create" method="post" enctype="multipart/form-data">
+            <label asp-for="Title">Title</label>
+            <input asp-for="Title">
+            <label asp-for="CategoryId">Category</label>
+            <input asp-for="CategoryId">
+            <label asp-for="Description">Description</label>
+            <textarea asp-for="Description" class="desc-post"></textarea>
+            <label asp-for="Text">Text</label>
+            <textarea asp-for="Text" class="text-post"></textarea>
+            <button type="submit">Publish</button>
+        </form>
+    </div>
 </div>

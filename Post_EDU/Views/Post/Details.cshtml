@@ -3,40 +3,60 @@
 }
 @model Post_EDU.Core.Models.Post
 
-<div>
-    <h3>@Model.Title</h3>
-    <h6>@Model.Category.NameCategory</h6>
-    @if (Model.PathImg == null)
-    {
-        <img src="~/defaultImg/@Model.Category.PathDefaultImg" class="postImg" />
-    }
-    @if (Model.PathImg != null)
-    {
-        <img src="~/uploads/@Model.PathImg" class="postImg" />
-    }
-    <h6>@Model.Description</h6>
-    <p>@Model.Text</p>
-    <p><a href="@Url.Action("Details", "User", new {userId = Model.AuthorId})">by @Model.Author.Name</a></p>
-    <p>Date: @Model.DateOfCreate</p>
-    <p>Likes: @Model.LikeCount</p>
-    <br />
-    <form asp-controller="Post" asp-action="AddLike" method="post">
-        <input name="PostId" type="hidden" value="@Model.IdPost" />
-        <input name="CurrentPostSlug"  type="hidden" value="@Model.Slug"/>
-        <button type="submit" class="btn btn-primary">Like</button>
-    </form>
-    <input class="btn btn-primary" type="button" name="ShowForm" onclick="ShowFormComment()" value="Write Comment" />
-    <br />
-    <form id="commentForm" asp-controller="Post" asp-action="AddComment" method="post">
-        <input name="CurrentPostSlug" type="hidden" value="@Model.Slug" />
-        <input name="PostId" value="@Model.IdPost" type="hidden" />
-        <input name="TextComment" class="form-control" type="text" />
-        <button type="submit" class="btn btn-primary">Comment</button>
-    </form>
-    @foreach (var comment in Model.Comments)
-    {
-        <h6>@comment.Author.Name</h6>
-        <p>@comment.TextComment</p>
-        <p>@comment.DateOfComment</p>
-    }
+<link rel="stylesheet" href="~/css/post.min.css" asp-append-version="true" />
+
+<div class="content">
+    <article class="post">
+        <div class="wrapper-img">
+            @if (Model.PathImg == null)
+            {
+                <img src="~/defaultImg/@Model.Category.PathDefaultImg" />
+            }
+            @if (Model.PathImg != null)
+            {
+                <img src="~/uploads/@Model.PathImg" />
+            }
+        </div>
+        <div class="wrapper-text">
+            <a href="@Url.Action("Details", "Post", new {slug = Model.Slug})"><h2>@Model.Title</h2></a>
+            <p>Description: @Model.Description</p>
+            <p>Categories: @Model.Category.NameCategory</p>
+            <a href="@Url.Action("Details", "User", new {userId = Model.AuthorId})"><p>by @Model.Author.Name</p></a>
+            <p>Date Of Create: @Model.DateOfCreate</p>
+            <p>Likes: @Model.LikeCount</p>
+            <form asp-controller="Post" asp-action="AddLike" method="post">
+                <input name="PostId" type="hidden" value="@Model.IdPost" />
+                <input name="CurrentPostSlug" type="hidden" value="@Model.Slug" />
+                <button type="submit" class="form-like-sub">Like</button>
+            </form>
+        </div>
+    </article>
+    <article class="text-data">
+        <p>@Model.Text</p>
+    </article>
+    
+    <div class="comment-wrapper">
+        <button class="comment-btn" onclick="ShowFormComment()">Comment</button>
+        <div class="form-wrapper">
+            <form id="comment-form" asp-controller="Post" asp-action="AddComment" method="post">
+                <input name="CurrentPostSlug" type="hidden" value="@Model.Slug" />
+                <input name="PostId" value="@Model.IdPost" type="hidden" />
+                <input name="TextComment" class="text-input" type="text" />
+                <button type="submit" class="comment-btn">Send</button>
+            </form>
+        </div>
+
+        @foreach (var comment in Model.Comments)
+        {
+            <div class="users-comment">
+                <div class="comment">
+                    <h1><a href="">@comment.Author.Name</a></h1>
+                    <p>@comment.TextComment</p>
+                    <p>@comment.DateOfComment</p>
+                </div>
+            </div>
+        }
+
+    </div>
+    
 </div>

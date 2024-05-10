@@ -2,20 +2,26 @@
 }
 @model Post_EDU.Core.UploadModels.UserUpload
 
-<div class="text-center">
-    <h1 class="display-4">Authorize</h1>
-    <form asp-controller="Authorize" asp-action="Index" method="post" enctype="multipart/form-data">
-        <div class="form-group">
-            <label asp-for="Name"></label>
-            <input asp-for="Name" class="form-control" />
-            <span asp-validation-for="Name" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="Password"></label>
-            <input asp-for="Password" class="form-control" />
-            <span asp-validation-for="Password" class="text-danger"></span>
-        </div>
-        <button type="submit" class="btn btn-primary">Login</button>
-    </form>
-    <a href="@Url.Action("Register", "Authorize")"><p>Register</p></a>
+<link rel="stylesheet" href="~/css/auth.min.css" asp-append-version="true" />
+
+<div class="title">
+    <h1>Authorization</h1>
+</div>
+<div class="content">
+    <div class="form-wrapper">
+        <form asp-controller="Authorize" asp-action="Index" method="post" enctype="multipart/form-data">
+            <div class="label-wrapper">
+                <label asp-for="Name">Name</label>
+                <label asp-for="Password">Password</label>
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="input-wrapper">
+                <input asp-for="Name" />
+                <input asp-for="Password" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <input type="submit" value="Login" class="sub-btn">
+        </form>
+        <a href="@Url.Action("Register", "Authorize")"><p>Register</p></a>
+    </div>
 </div>

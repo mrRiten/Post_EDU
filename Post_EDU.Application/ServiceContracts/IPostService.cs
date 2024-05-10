@@ -7,6 +7,7 @@ namespace Post_EDU.Application.ServiceContracts
     {
         public Task<ICollection<Post>> GetAllAsync();
         public Task<Post?> GetAsync(string slug);
+        public Task<IndexTopModel> GetIndexAsync();
         public Task CreateAsync(PostUpload model, string userName, string? pathImg);
         public Task EditLikeAsync(LikeUpload model, string userName);
         public Task UpdateAsync(PostUpload model);

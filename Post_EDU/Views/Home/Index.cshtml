@@ -2,7 +2,115 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+@model Post_EDU.Core.Models.IndexTopModel;
+
+<link rel="stylesheet" href="~/css/index.min.css" asp-append-version="true" />
+
+<div class="page-title">
+    <div class="container">
+        <h1>Welcome to Post_EDU!</h1>
+    </div>
+</div>
+
+<div class="posts">
+    <div class="container">
+        <div class="wrapper">
+
+            <div class="content">
+                <div class="best-posts">
+                    <article class="post">
+                        <div class="wrapper-img">
+                            @if (Model.TopLikesPosts[0].PathImg == null)
+                            {
+                                <img src="~/defaultImg/@Model.TopLikesPosts[0].Category.PathDefaultImg" />
+                            }
+                            @if (Model.TopLikesPosts[0].PathImg != null)
+                            {
+                                <img src="~/uploads/@Model.TopLikesPosts[0].PathImg" />
+                            }
+                        </div>
+                        <a href="@Url.Action("Details", "Post", new {slug = Model.TopLikesPosts[0].Slug})">
+                            <h4 class="title">@Model.TopLikesPosts[0].Title</h4>
+                        </a>
+                        <p class="text">
+                            @Model.TopLikesPosts[0].Description
+                        </p>
+                    </article>
+
+                    <div class="wrapper-post">
+                        <article class="post">
+                            <div class="wrapper-img">
+                                @if (Model.TopLikesPosts[1].PathImg == null)
+                                {
+                                    <img src="~/defaultImg/@Model.TopLikesPosts[1].Category.PathDefaultImg" />
+                                }
+                                @if (Model.TopLikesPosts[1].PathImg != null)
+                                {
+                                    <img src="~/uploads/@Model.TopLikesPosts[1].PathImg" />
+                                }
+                            </div>
+                            <a href="@Url.Action("Details", "Post", new {slug = Model.TopLikesPosts[1].Slug})">
+                                <h4 class="title">@Model.TopLikesPosts[1].Title</h4>
+                            </a>
+                            <p class="text">
+                                @Model.TopLikesPosts[1].Description
+                            </p>
+                        </article>
+
+                        <article class="post">
+                            <div class="wrapper-img">
+                                @if (Model.TopLikesPosts[2].PathImg == null)
+                                {
+                                    <img src="~/defaultImg/@Model.TopLikesPosts[2].Category.PathDefaultImg" />
+                                }
+                                @if (Model.TopLikesPosts[2].PathImg != null)
+                                {
+                                    <img src="~/uploads/@Model.TopLikesPosts[2].PathImg" />
+                                }
+                            </div>
+                            <a href="@Url.Action("Details", "Post", new {slug = Model.TopLikesPosts[2].Slug})">
+                                <h4 class="title">@Model.TopLikesPosts[2].Title</h4>
+                            </a>
+                            <p class="text">
+                                @Model.TopLikesPosts[2].Description
+                            </p>
+                        </article>
+                    </div>
+                </div>
+
+                <div class="about">
+                    Post_EDU это учебный проект сделаный для изучения ASP.Net Core.
+                    В проекте использовались DI/DI Rules, MVC, Луковая(Слоёная/Onion) Архитектура.
+                    На проекте присутствует динамическое добавление контента, система Регистрации /
+                    Авторизайции по ролям, разграничение доступа пользователям, возможность комментировать и
+                    ставить лайки на посты пользователей, просмотор профилей пользователей.
+                </div>
+
+            </div>
+
+            <aside class="new-post">
+                <h3 class="title">New posts</h3>
+                @foreach (var newPost in Model.TopDatePosts)
+                {
+                    <article class="post">
+                        <div class="wrapper-img">
+                            @if (newPost.PathImg == null)
+                            {
+                                <img src="~/defaultImg/@newPost.Category.PathDefaultImg" />
+                            }
+                            @if (newPost.PathImg != null)
+                            {
+                                <img src="~/uploads/@newPost.PathImg" />
+                            }
+                        </div>
+                        <a href="@Url.Action("Details", "Post", new {slug = newPost.Slug})"><h4 class="title">@newPost.Title</h4></a>
+                        <p class="text">
+                            @newPost.Description
+                        </p>
+                    </article>
+                }
+            </aside>
+
+        </div>
+    </div>
 </div>

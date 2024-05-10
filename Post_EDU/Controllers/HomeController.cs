@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Post_EDU.Application.ServiceContracts;
 using Post_EDU.Models;
 using System.Diagnostics;
 
@@ -8,15 +9,19 @@ namespace Post_EDU.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly IPostService _postService;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, IPostService postService)
         {
             _logger = logger;
+            _postService = postService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var indexModel = await _postService.GetIndexAsync();
+            
+            return View(indexModel);
         }
 
         [Authorize(Roles = "Admin")]

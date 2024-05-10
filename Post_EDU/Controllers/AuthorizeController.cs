@@ -33,7 +33,7 @@ namespace Post_EDU.Web.Controllers
                 var authenticationProperties = new AuthenticationProperties
                 {
                     IsPersistent = true,
-                    ExpiresUtc = DateTime.UtcNow.AddMinutes(5)
+                    ExpiresUtc = DateTime.UtcNow.AddHours(24)
                 };
                 await HttpContext.SignInAsync(claimsPrincipal, authenticationProperties);
                 return RedirectToAction("Index", "Home");

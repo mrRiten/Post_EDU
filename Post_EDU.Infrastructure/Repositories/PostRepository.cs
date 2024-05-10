@@ -73,5 +73,24 @@ namespace Post_EDU.Infrastructure.Repositories
             }
         }
 
+        public async Task<List<Post?>> GetTopByLikes()
+        {
+            return await _context.Posts
+                .Include(p => p.Category)
+                .Include(p => p.Category)
+                .OrderByDescending(p => p.LikeCount)
+                .Take(3)
+                .ToListAsync();
+        }
+
+        public async Task<List<Post?>> GetTopByDate()
+        {
+            return await _context.Posts
+                .Include(p => p.Category)
+                .Include(p => p.Category)
+                .OrderByDescending(p => p.DateOfCreate)
+                .Take(3)
+                .ToListAsync();
+        }
     }
 }

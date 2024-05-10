@@ -1,28 +1,41 @@
 ﻿@{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Profile";
 }
 @model Post_EDU.Core.Models.User
 
-<div>
-    @if (Model.PathImg == null)
-    {
-        <img src="~/defaultImg/@Model.Role.PathDefaultImg" class="postImg" />
-    }
-    @if (Model.PathImg != null)
-    {
-        <img src="~/uploads/@Model.PathImg" class="postImg" />
+<link rel="stylesheet" href="~/css/profile.min.css" asp-append-version="true" />
 
-    }
-    <h3>@Model.Name</h3>
-    <h6>@Model.Description</h6>
+<div class="content">
 
-    <p>Date: @Model.DateOfRegister</p>
-    <p>Date: @Model.LastLogin</p>
+    <div class="user">
+        <div class="wrapper-img">
+            @if (Model.PathImg == null)
+            {
+                <img src="~/defaultImg/@Model.Role.PathDefaultImg" class="postImg" />
+            }
+            @if (Model.PathImg != null)
+            {
+                <img src="~/uploads/@Model.PathImg" class="postImg" />
+            }
+        </div>
+        <div class="wrapper-data">
+            <h2>@Model.Name</h2>
+            <h2>@Model.Description</h2>
+            <h2>Data Of Register: @Model.DateOfRegister</h2>
+            <h2>Last Connection: @Model.LastLogin</h2>
+        </div>
+    </div>
 
-    <br />
-    <p>User`s Posts</p>
-    @foreach (var post in Model.Posts)
-    {
-        <a href="@Url.Action("Details", "Post", new {slug = post.Slug})"><h6>@post.Title</h6></a>
-    }
+    <div class="posts-wrapper">
+        <h2>User`s Posts</h2>
+        <div class="users-posts">
+            @foreach (var post in Model.Posts)
+            {
+                <article class="author-post">
+                    <a href="@Url.Action("Details", "Post", new {slug = post.Slug})"><h3>@post.Title</h3></a>
+                </article>
+            }
+        </div>
+    </div>
+
 </div>

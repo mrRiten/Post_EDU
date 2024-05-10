@@ -97,5 +97,15 @@ namespace Post_EDU.Infrastructure.Services
         {
             throw new NotImplementedException();
         }
+
+        public async Task<IndexTopModel> GetIndexAsync()
+        {
+            var indexModel = new IndexTopModel {
+                TopLikesPosts = await _postRepository.GetTopByLikes(),
+                TopDatePosts = await _postRepository.GetTopByDate()
+            };
+
+            return indexModel;
+        }
     }
 }
