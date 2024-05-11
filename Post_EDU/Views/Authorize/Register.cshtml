@@ -9,7 +9,7 @@
 </div>
 <div class="content">
     <div class="form-wrapper">
-        <form asp-controller="Authorize" asp-action="Index" method="post" enctype="multipart/form-data">
+        <form asp-controller="Authorize" asp-action="Register" method="post" enctype="multipart/form-data">
             <div class="label-wrapper">
                 <label asp-for="Name">Name</label>
                 <span asp-validation-for="Name" class="text-danger"></span>
@@ -23,7 +23,7 @@
                 <input asp-for="Password" />
                 <input asp-for="PathImg" />
             </div>
-            <input type="submit" value="Login" class="sub-btn">
+            <input type="submit" value="Register" class="sub-btn">
         </form>
     </div>
 </div>
